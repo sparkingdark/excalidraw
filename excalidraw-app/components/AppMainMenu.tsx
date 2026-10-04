@@ -1,10 +1,6 @@
-import {
-  loginIcon,
-  ExcalLogo,
-  eyeIcon,
-} from "@excalidraw/excalidraw/components/icons";
-import { useI18n } from "@excalidraw/excalidraw/i18n";
-import { MainMenu } from "@excalidraw/excalidraw/index";
+import { ExcalidrawLogo } from "@excalidraw/excalidraw/components/ExcalidrawLogo";
+import { eyeIcon } from "@excalidraw/excalidraw/components/icons";
+import { MainMenu, useExcalidrawAPI } from "@excalidraw/excalidraw/index";
 import React from "react";
 
 import { isDevEnv } from "@excalidraw/common";
@@ -12,9 +8,11 @@ import { isDevEnv } from "@excalidraw/common";
 import type { Theme } from "@excalidraw/element/types";
 
 import { LanguageList } from "../app-language/LanguageList";
-import { isExcalidrawPlusSignedUser } from "../app_constants";
 
 import { saveDebugState } from "./DebugCanvas";
+import { architectureIcon } from "./architecture/ArchitectureIcon";
+import { objectsIcon } from "./diagram/ObjectsPanel";
+import { arrangeIcon } from "./diagram/ArrangePanel";
 
 export const AppMainMenu: React.FC<{
   onCollabDialogOpen: () => any;
@@ -23,9 +21,12 @@ export const AppMainMenu: React.FC<{
   theme: Theme | "system";
   refresh: () => void;
 }> = React.memo((props) => {
-  const { t } = useI18n();
+  const api = useExcalidrawAPI();
   return (
     <MainMenu>
+      <MainMenu.ItemCustom>
+        <ExcalidrawLogo size="mobile" withText />
+      </MainMenu.ItemCustom>
       <MainMenu.DefaultItems.LoadScene />
       <MainMenu.DefaultItems.SaveToActiveFile />
       <MainMenu.DefaultItems.Export />
@@ -38,28 +39,37 @@ export const AppMainMenu: React.FC<{
       )}
       <MainMenu.DefaultItems.CommandPalette className="highlighted" />
       <MainMenu.DefaultItems.SearchMenu />
+      <MainMenu.Item
+        icon={architectureIcon}
+        onSelect={() =>
+          api?.toggleSidebar({
+            name: "default",
+            tab: "architecture",
+            force: true,
+          })
+        }
+      >
+        Architecture toolkit
+      </MainMenu.Item>
       <MainMenu.DefaultItems.Help />
+      <MainMenu.Item
+        icon={objectsIcon}
+        onSelect={() =>
+          api?.toggleSidebar({ name: "default", tab: "objects", force: true })
+        }
+      >
+        Objects
+      </MainMenu.Item>
+      <MainMenu.Item
+        icon={arrangeIcon}
+        onSelect={() =>
+          api?.toggleSidebar({ name: "default", tab: "arrange", force: true })
+        }
+      >
+        Arrange
+      </MainMenu.Item>
       <MainMenu.DefaultItems.ClearCanvas />
       <MainMenu.Separator />
-      <MainMenu.ItemLink
-        icon={ExcalLogo}
-        href={`${
-          import.meta.env.VITE_APP_PLUS_LP
-        }/plus?utm_source=excalidraw&utm_medium=app&utm_content=hamburger`}
-        className=""
-      >
-        Excalidraw+
-      </MainMenu.ItemLink>
-      <MainMenu.DefaultItems.Socials />
-      <MainMenu.ItemLink
-        icon={loginIcon}
-        href={`${import.meta.env.VITE_APP_PLUS_APP}${
-          isExcalidrawPlusSignedUser ? "" : "/sign-up"
-        }?utm_source=signin&utm_medium=app&utm_content=hamburger`}
-        className="highlighted"
-      >
-        {isExcalidrawPlusSignedUser ? t("labels.signIn") : t("labels.signUp")}
-      </MainMenu.ItemLink>
       {isDevEnv() && (
         <MainMenu.Item
           icon={eyeIcon}

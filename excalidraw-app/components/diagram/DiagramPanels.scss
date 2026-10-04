@@ -1,0 +1,126 @@
+.excalidraw .neodraw-panel {
+  min-height: 0;
+  flex: 1 1 0;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  padding: 0 1rem 1rem;
+  box-sizing: border-box;
+  color: var(--color-on-surface);
+  font-size: 0.8125rem;
+  h2 {
+    font-size: 1.125rem;
+    margin: 0.5rem 0;
+  }
+  h3 {
+    font-size: 0.875rem;
+    margin: 1.25rem 0 0.75rem;
+  }
+  p {
+    color: var(--color-on-surface-variant);
+    line-height: 1.6;
+  }
+  button,
+  input {
+    font-family: var(--ui-font);
+    color: inherit;
+  }
+  button {
+    padding: 0.625rem;
+    background: var(--island-bg-color);
+    border: 1px solid var(--sidebar-border-color);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 0.75rem;
+  }
+  button:hover:not(:disabled) {
+    border-color: var(--color-primary);
+    background: var(--color-surface-mid);
+  }
+  button:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  button:focus-visible,
+  input:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  &__eyebrow {
+    color: var(--color-primary);
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-weight: 600;
+    input {
+      padding: 0.75rem;
+      border: 1px solid var(--sidebar-border-color);
+      border-radius: 0.5rem;
+      background: var(--island-bg-color);
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 0.75rem;
+    }
+  }
+  &__tools {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+  &__objects {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+  &__object {
+    display: flex;
+    border: 1px solid var(--sidebar-border-color);
+    border-radius: 0.625rem;
+    overflow: hidden;
+    &[data-selected="true"] {
+      border-color: var(--color-primary);
+      background: var(--color-surface-mid);
+    }
+    button {
+      border: none;
+      background: transparent;
+      border-radius: 0;
+    }
+  }
+  &__object-name {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    text-align: left;
+    flex: 1;
+    min-width: 0;
+    strong {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+    small {
+      color: var(--color-on-surface-variant);
+      font-size: 0.6875rem;
+    }
+  }
+  &__object-lock {
+    flex: 0 0 2.25rem;
+    display: grid;
+    place-items: center;
+    svg {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+  &__hint {
+    font-size: 0.75rem;
+    margin-top: 1.25rem;
+  }
+}

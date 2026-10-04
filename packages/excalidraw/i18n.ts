@@ -1,4 +1,4 @@
-import { isDevEnv } from "@excalidraw/common";
+import { APP_NAME, isDevEnv } from "@excalidraw/common";
 
 import type { NestedKeyOf } from "@excalidraw/common/utility-types";
 
@@ -150,6 +150,8 @@ export const t = (
     }
     throw new Error(errorMessage);
   }
+
+  translation = translation.replace(/Excalidraw/g, APP_NAME);
 
   if (replacement) {
     for (const key in replacement) {

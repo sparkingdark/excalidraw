@@ -14,6 +14,12 @@
     margin-inline-start: auto;
   }
 
+  .neodraw-footer-brand {
+    display: flex;
+    padding: 0.25rem 0.5rem;
+    opacity: 0.85;
+  }
+
   .encrypted-icon {
     border-radius: var(--space-factor);
     color: var(--color-primary);
